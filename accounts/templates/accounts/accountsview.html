@@ -22,6 +22,7 @@
             <th>#</th>
             <th>UserName</th>
             <th>Password</th>
+            <th>Status</th>
             <th>Actions</th>
             </thead>
             <tbody>
@@ -30,6 +31,7 @@
                 <td>{{ forloop.counter }}</td>
                 <td>{{ acc.userid }}</td>
                 <td>{{ acc.password }}</td>
+                <td>{{ acc.status }}</td>
                 <td> <a href="{% url 'accounts:updateaccount' acc.id %}" style="background-color: #454E59; color: white" class="btn ">Update</a> <a href="{% url 'accounts:deleteaccount' acc.id %}" style="background-color: #CA0028; color: white" class="btn ">Delete</a>  </td>
             </tr>
             {% endfor %}

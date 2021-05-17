@@ -11,7 +11,7 @@ class Account(models.Model):
 
     def __str__(self):
         # return f'{self.userid}            {self.password} {self.status}'
-        return  self.userid +  "---" + self.password
+        return  self.userid +  "---" + self.password + "-----" + str(self.status)
 
 
 class Profile(models.Model):

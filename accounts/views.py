@@ -388,14 +388,14 @@ def instabotcode(request):
                         print('------------------------')
                         # print(follow_report)
                         # follow_report += 2
-                        print(follow_report)
+                        # print(follow_report)
                         follow_report = follow_func(wait, driver, follow_report)
 
                         print('------------------------')
                         print('fff')
                         # follow_report += 1
 
-                        print(follow_report)
+                        # print(follow_report)
                         # story_report += 1
                     except:
                         # driver.quit()
@@ -455,7 +455,7 @@ def instabotcode(request):
                 Logout = wait.until(EC.element_to_be_clickable((By.XPATH,
                                                                 '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div'))).click()
 
-                # sleep(5)
+                sleep(2)
                 driver.quit()
                 # sleep(4)
                 print('Logout Successfully ')
@@ -599,7 +599,7 @@ def comment_func(wait, driver, comment_report):
         print("Comment SuccessFully")
     else:
         comm_rep -= 1
-        print("Comment Restricted")
+        print("Comment After and Before")
 
     return comm_rep
     # print('Comment Successfully')
