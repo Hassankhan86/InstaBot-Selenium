@@ -170,7 +170,7 @@ def errormessage(request):
 @login_required(login_url='/accounts/login')
 def instabotcode(request):
     # if request.method == 'POST':
-    try:
+    # try:
         like = request.POST.get('liked')
         comment = request.POST.get('commented')
         story = request.POST.get('storyview')
@@ -372,47 +372,7 @@ def instabotcode(request):
 
                 # sleep(0)
 
-                if story == None:
-                    pass
-                else:
-                    try:
-                        time.sleep(random.randint(1, 2))
-                        # sleep(2)
-                        print(story_report)
-                        story_report = story_func(wait, driver, story_report)
-                        print('sss')
-
-                    except:
-                        # driver.quit()
-                        print('Story No Found ')
-                        # print('Verify Your Account')
-                        continue
-
-                driver.get(acc_search[search])
-
-                if follow == None:
-                    pass
-                else:
-                    try:
-                        print('------------------------')
-                        # print(follow_report)
-                        # follow_report += 2
-                        # print(follow_report)
-                        follow_report = follow_func(wait, driver, follow_report)
-
-                        print('------------------------')
-                        print('fff')
-                        # follow_report += 1
-
-                        # print(follow_report)
-                        # story_report += 1
-                    except:
-                        # driver.quit()
-                        print("Follow Already")
-
-                    # acc = Account.objects.get()
-                    # Account.objects.update(status=F('status')-1)
-
+# <=-------------------=>
                 if like == None:
                     pass
                 else:
@@ -458,6 +418,61 @@ def instabotcode(request):
 
                         continue
 
+
+# <=-------------------=>
+
+                time.sleep(random.randint(2, 3))
+                profile = wait.until(EC.element_to_be_clickable((By.XPATH,
+                                                                 '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[1]/span/a')))
+                # if profile.is_displayed():
+                profile.click()
+                time.sleep(random.randint(2, 3))
+
+# <=-------------------=>
+
+                if story == None:
+                    pass
+                else:
+                    try:
+                        time.sleep(random.randint(1, 2))
+                        # sleep(2)
+                        print(story_report)
+                        story_report = story_func(wait, driver, story_report)
+                        print('sss')
+
+                    except:
+                        # driver.quit()
+                        print('Story No Found ')
+                        # print('Verify Your Account')
+                        continue
+
+                if follow == None:
+                    pass
+                else:
+                    try:
+                        print('------------------------')
+                        # print(follow_report)
+                        # follow_report += 2
+                        # print(follow_report)
+                        follow_report = follow_func(wait, driver, follow_report)
+
+                        print('------------------------')
+                        print('fff')
+                        # follow_report += 1
+
+                        # print(follow_report)
+                        # story_report += 1
+                    except:
+                        # driver.quit()
+                        print("Follow Already")
+
+                    # acc = Account.objects.get()
+                    # Account.objects.update(status=F('status')-1)
+
+
+                # driver.get(acc_search[search])
+
+
             try:
                 LogOutBtn = wait.until(EC.element_to_be_clickable(
                     (By.XPATH, '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img'))).click()
@@ -482,9 +497,9 @@ def instabotcode(request):
         return render(request, 'accounts/report.html',
                       {'target': target, 'like_report': like_report, 'comment_report': comment_report,
                        'story_report': story_report, 'follow_report': follow_report})
-    except:
-        #     # return HttpResponse("Network problem")
-        return render(request, 'accounts/error_message.html')
+    # except:
+    #     #     # return HttpResponse("Network problem")
+    #     return render(request, 'accounts/error_message.html')
 
 
 def follow_func(wait, driver, follow_report):
@@ -634,28 +649,24 @@ def comment_func(wait, driver, comment_report):
 def story_func(wait, driver, story_report):
     fol_story = story_report
 
-    profile = wait.until(EC.element_to_be_clickable((By.XPATH,
-                                                     '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[1]/span/a')))
-    if profile.is_displayed():
-        profile.click()
-        time.sleep(random.randint(2, 3))
-        # sleep(2)
-        # print('333')
-        try:
-            Story = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, '_6q-tv'))).click()
-            time.sleep(random.randint(3, 5))
-            # time.sleep(3)
-            StoryClose = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/section/div[3]/button')))
-            if StoryClose.is_displayed():
-                StoryClose.click()
-                print('Story1 Seen Successfully')
-                fol_story += 1
-                print(fol_story)
 
-        except:
-            # fol_story -= 1
+    # sleep(2)
+    # print('333')
+    try:
+        Story = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, '_6q-tv'))).click()
+        time.sleep(random.randint(1,3))
+        # time.sleep(3)
+        StoryClose = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/section/div[3]/button')))
+        if StoryClose.is_displayed():
+            StoryClose.click()
+            print('Story1 Seen Successfully')
+            fol_story += 1
             print(fol_story)
-            print('Story Not Found')
+
+    except:
+        # fol_story -= 1
+        print(fol_story)
+        print('Story Not Found')
 
     return fol_story
     # else::
