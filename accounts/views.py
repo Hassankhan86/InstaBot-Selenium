@@ -1,8 +1,8 @@
 import random
+from random import randint
 import csv, io
 from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
-
 import keyboard
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm
@@ -228,7 +228,7 @@ def instabotcode(request):
         # print(driver.title)
         # time.sleep(5)
 
-        # print(accounts)
+        print(accounts)
         for acc in accounts[:numb]:
             acc_username.append(acc.userid)
             acc_password.append(acc.password)
@@ -265,7 +265,9 @@ def instabotcode(request):
             # actions.perform()
             # keyboard.send("Enter")
             print('Cache Clear Successfully')
-            sleep(0)
+            # sleep(0)
+            time.sleep(random.randint(1,2))
+            # print(t)
             # driver.quit()
             print('----------------2')
 
@@ -278,7 +280,9 @@ def instabotcode(request):
 
             wait = WebDriverWait(driver, 10)
             print('----------------4')
-            sleep(3)
+
+            time.sleep(random.randint(1,2))
+            # sleep(3)
 
             print('Webpage :' + driver.title)
             Username = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(
@@ -286,17 +290,20 @@ def instabotcode(request):
             Username.send_keys(acc.userid)
             print("Username :" + acc.userid)
 
-            sleep(1)
+            # sleep(1)
+
             Password = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(
                 (By.XPATH, "/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input")))
             Password.send_keys(acc.password)
             print("Password : " + acc.password)
 
-            time.sleep(1)
+            # time.sleep(1)
 
             WebDriverWait(driver, 5).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[type=submit]'))).click()
-            time.sleep(5)
+
+            time.sleep(random.randint(2, 4))
+            # time.sleep(5)
 
             # try:
             #
@@ -349,7 +356,8 @@ def instabotcode(request):
                 pass
 
             for search in range(len(acc_search)):
-                sleep(5)
+                time.sleep(random.randint(2, 4))
+                # sleep(5)
                 print('Search Pic Link : ' + acc_search[search])
                 driver.get(acc_search[search])
 
@@ -368,7 +376,8 @@ def instabotcode(request):
                     pass
                 else:
                     try:
-                        sleep(2)
+                        time.sleep(random.randint(1, 2))
+                        # sleep(2)
                         print(story_report)
                         story_report = story_func(wait, driver, story_report)
                         print('sss')
@@ -409,7 +418,8 @@ def instabotcode(request):
                 else:
                     try:
                         print('------------------------')
-                        sleep(3)
+                        time.sleep(random.randint(1, 3))
+                        # sleep(3)
                         like_func(wait, driver)
                         like_report += 1
                         print('------------------------')
@@ -451,11 +461,13 @@ def instabotcode(request):
             try:
                 LogOutBtn = wait.until(EC.element_to_be_clickable(
                     (By.XPATH, '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img'))).click()
-                time.sleep(3)
+                time.sleep(random.randint(1, 3))
+                # time.sleep(3)
                 Logout = wait.until(EC.element_to_be_clickable((By.XPATH,
                                                                 '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div'))).click()
 
-                sleep(2)
+                time.sleep(random.randint(1, 2))
+                # sleep(2)
                 driver.quit()
                 # sleep(4)
                 print('Logout Successfully ')
@@ -479,7 +491,8 @@ def follow_func(wait, driver, follow_report):
     fol_rep = follow_report
 
     print(fol_rep)
-    sleep(3)
+    time.sleep(random.randint(2, 3))
+    # sleep(3)
     followButton = wait.until(
         EC.element_to_be_clickable((By.XPATH, '//button[contains(text(),"Follow")]')))
 
@@ -569,18 +582,21 @@ def comment_func(wait, driver, comment_report):
     before_comment = len(driver.find_elements_by_class_name('Mr508'))
     print(before_comment)
 
-    sleep(3)
+    time.sleep(random.randint(1, 3))
+    # sleep(3)
     comment = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(
         (By.XPATH, '//*[@aria-label="Add a comment…"]')))
     if comment.is_displayed():
         comment.click()
         # comment.send_keys(random.choice(com_list))
-        sleep(2)
+        # sleep(2)
+        time.sleep(random.randint(1, 2))
     msg = WebDriverWait(driver, 2).until(EC.element_to_be_clickable(
         (By.XPATH,
          '/html/body/div[1]/section/main/div/div[1]/article/div[3]/section[3]/div/form/textarea'))).send_keys(
         random.choice(com_list))
-    sleep(2)
+    time.sleep(random.randint(1, 2))
+    # sleep(2)
 
     Post = WebDriverWait(driver, 2).until(
         EC.element_to_be_clickable((By.XPATH, '//button[contains(text(),"Post")]'))).click()
@@ -622,11 +638,13 @@ def story_func(wait, driver, story_report):
                                                      '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[1]/span/a')))
     if profile.is_displayed():
         profile.click()
-        sleep(2)
+        time.sleep(random.randint(2, 3))
+        # sleep(2)
         # print('333')
         try:
             Story = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, '_6q-tv'))).click()
-            time.sleep(3)
+            time.sleep(random.randint(3, 5))
+            # time.sleep(3)
             StoryClose = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/section/div[3]/button')))
             if StoryClose.is_displayed():
                 StoryClose.click()
