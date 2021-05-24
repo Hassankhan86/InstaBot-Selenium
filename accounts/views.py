@@ -170,7 +170,7 @@ def errormessage(request):
 @login_required(login_url='/accounts/login')
 def instabotcode(request):
     # if request.method == 'POST':
-    # try:
+    try:
         like = request.POST.get('liked')
         comment = request.POST.get('commented')
         story = request.POST.get('storyview')
@@ -285,14 +285,14 @@ def instabotcode(request):
             # sleep(3)
 
             print('Webpage :' + driver.title)
-            Username = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(
+            Username = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(
                 (By.XPATH, "/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[1]/div/label/input")))
             Username.send_keys(acc.userid)
             print("Username :" + acc.userid)
 
             # sleep(1)
 
-            Password = WebDriverWait(driver, 5).until(EC.visibility_of_element_located(
+            Password = WebDriverWait(driver, 10).until(EC.visibility_of_element_located(
                 (By.XPATH, "/html/body/div[1]/section/main/article/div[2]/div[1]/div/form/div/div[2]/div/label/input")))
             Password.send_keys(acc.password)
             print("Password : " + acc.password)
@@ -421,11 +421,11 @@ def instabotcode(request):
 
 # <=-------------------=>
 
-                time.sleep(random.randint(2, 3))
+                time.sleep(random.randint(3, 5))
                 profile = wait.until(EC.element_to_be_clickable((By.XPATH,
-                                                                 '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[1]/span/a')))
+                                                                 '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[1]/span/a'))).click()
                 # if profile.is_displayed():
-                profile.click()
+                # profile.click()
                 time.sleep(random.randint(2, 3))
 
 # <=-------------------=>
@@ -476,7 +476,7 @@ def instabotcode(request):
             try:
                 LogOutBtn = wait.until(EC.element_to_be_clickable(
                     (By.XPATH, '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img'))).click()
-                time.sleep(random.randint(1, 3))
+                time.sleep(random.randint(1, 2))
                 # time.sleep(3)
                 Logout = wait.until(EC.element_to_be_clickable((By.XPATH,
                                                                 '/html/body/div[1]/section/nav/div[2]/div/div/div[3]/div/div[5]/div[2]/div[2]/div[2]/div[2]/div/div/div/div/div/div'))).click()
@@ -497,9 +497,9 @@ def instabotcode(request):
         return render(request, 'accounts/report.html',
                       {'target': target, 'like_report': like_report, 'comment_report': comment_report,
                        'story_report': story_report, 'follow_report': follow_report})
-    # except:
-    #     #     # return HttpResponse("Network problem")
-    #     return render(request, 'accounts/error_message.html')
+    except:
+        #     # return HttpResponse("Network problem")
+        return render(request, 'accounts/error_message.html')
 
 
 def follow_func(wait, driver, follow_report):
@@ -654,7 +654,7 @@ def story_func(wait, driver, story_report):
     # print('333')
     try:
         Story = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, '_6q-tv'))).click()
-        time.sleep(random.randint(1,3))
+        time.sleep(random.randint(3,4))
         # time.sleep(3)
         StoryClose = wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[1]/section/div[3]/button')))
         if StoryClose.is_displayed():
