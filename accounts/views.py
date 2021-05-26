@@ -170,13 +170,17 @@ def errormessage(request):
 @login_required(login_url='/accounts/login')
 def instabotcode(request):
     # if request.method == 'POST':
-    try:
+    # try:
+        print('sss')
+
         like = request.POST.get('liked')
         comment = request.POST.get('commented')
         story = request.POST.get('storyview')
         follow = request.POST.get('followed')
         accounts_no = request.POST.get('account_number_tag')
         numb = int(accounts_no)
+        print('sss')
+
         like_report = 0
         comment_report = 0
         story_report = 0
@@ -188,8 +192,9 @@ def instabotcode(request):
         # comment = Comments.objects.all()
         # print(comment)
         # print(comment_list)
-        accounts = Account.objects.filter(status=1)
-
+        print('sss')
+        accounts = Account.objects.filter(status =1)
+        print(accounts)
         if request.POST:
             target = request.POST.get('example-tags')
             acc_search = target.split(',')
@@ -420,14 +425,15 @@ def instabotcode(request):
 
 
 # <=-------------------=>
-
-                time.sleep(random.randint(3, 5))
-                profile = wait.until(EC.element_to_be_clickable((By.XPATH,
+                try:
+                    time.sleep(random.randint(3, 5))
+                    profile = wait.until(EC.element_to_be_clickable((By.XPATH,
                                                                  '/html/body/div[1]/section/main/div/div[1]/article/header/div[2]/div[1]/div[1]/span/a'))).click()
                 # if profile.is_displayed():
                 # profile.click()
-                time.sleep(random.randint(2, 3))
-
+                    time.sleep(random.randint(2, 3))
+                except:
+                    continue
 # <=-------------------=>
 
                 if story == None:
@@ -490,6 +496,9 @@ def instabotcode(request):
             except:
                 driver.quit()
                 print('Account Detected ')
+                acc.status = 0
+                acc.save()
+                print('Account status change to  Not Verify ')
                 continue
 
         # driver.quit()
@@ -497,9 +506,9 @@ def instabotcode(request):
         return render(request, 'accounts/report.html',
                       {'target': target, 'like_report': like_report, 'comment_report': comment_report,
                        'story_report': story_report, 'follow_report': follow_report})
-    except:
-        #     # return HttpResponse("Network problem")
-        return render(request, 'accounts/error_message.html')
+    # except:
+    #     #     # return HttpResponse("Network problem")
+    #     return render(request, 'accounts/error_message.html')
 
 
 def follow_func(wait, driver, follow_report):

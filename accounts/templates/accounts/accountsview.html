@@ -34,9 +34,9 @@
 {#                <td>{{ acc.status }}</td>#}
                 <td>
                     {% if acc.status == 0 %}
-                    Please Verify Your Account First
+                    NoT-Verified
                     {% else %}
-                    Account is Verified
+                    Verified
                     {% endif %}
                 </td>
                 <td> <a href="{% url 'accounts:updateaccount' acc.id %}" style="background-color: #454E59; color: white" class="btn ">Update</a> <a href="{% url 'accounts:deleteaccount' acc.id %}" style="background-color: #CA0028; color: white" class="btn ">Delete</a>  </td>

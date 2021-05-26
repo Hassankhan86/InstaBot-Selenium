@@ -5,9 +5,19 @@ from django.db import models
 
 # Create your models here.
 class Account(models.Model):
+    VERIFIED = 1
+    NOTVERIFIED = 0
+    status_choices = (
+        (VERIFIED, "VERIFIED"),
+        (NOTVERIFIED, "NOT-VERIFIED"),
+
+
+    )
+
     userid = models.TextField(max_length=50, default=None, blank=True)
     password = models.TextField(max_length=50, default=None, blank=True)
-    status = models.IntegerField( default=1, blank=True)
+    status = models.IntegerField(default=VERIFIED, choices=status_choices)
+    # status = models.IntegerField( default=1, blank=True)
 
     def __str__(self):
         # return f'{self.userid}            {self.password} {self.status}'
