@@ -170,7 +170,7 @@ def errormessage(request):
 @login_required(login_url='/accounts/login')
 def instabotcode(request):
     # if request.method == 'POST':
-    # try:
+    try:
         print('sss')
 
         like = request.POST.get('liked')
@@ -506,9 +506,9 @@ def instabotcode(request):
         return render(request, 'accounts/report.html',
                       {'target': target, 'like_report': like_report, 'comment_report': comment_report,
                        'story_report': story_report, 'follow_report': follow_report})
-    # except:
-    #     #     # return HttpResponse("Network problem")
-    #     return render(request, 'accounts/error_message.html')
+    except:
+        #     # return HttpResponse("Network problem")
+        return render(request, 'accounts/error_message.html')
 
 
 def follow_func(wait, driver, follow_report):
